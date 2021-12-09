@@ -30,6 +30,9 @@ export default function InputForm() {
                 />
                 <button type="submit" onClick={submitHandler}>Search</button>
             </form>
+            { result.map(book => (
+                <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.title} />
+            )) }
         </div>
     )
 }
