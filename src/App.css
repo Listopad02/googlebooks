@@ -19,3 +19,48 @@
   display: flex;
   flex-direction: row;
 }
+* {
+  box-sizing: border-box;
+} 
+.App-InputForm {
+  width: 60%;
+  z-index: 2;
+  padding-left: 2.375rem;
+  position: relative;
+} 
+.App-InputForm input {
+  outline: none;
+  height: 3em;
+  border-radius: 5px;
+  width: 100%;
+  display: block;
+  padding-left: 1.375rem;
+}  
+button {
+  position: absolute;
+  top: 5px;
+  right: .4em;
+  height: 2.2em;
+  border-radius: 1.1em;
+  border: 1px solid #fff;
+  text-transform: uppercase;
+}
+.App-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.App-main-container {
+  margin-top: 15px;
+  width: calc(24% - 0px);
+  border: 1px solid #ccc;
+}
+.App-main-container img {
+  float: left;
+  margin: 2px;
+  padding: 2px;
+  border: 1px solid #ccc;
+}
+.App-main-container p {
+  margin-left: 7px;
+}
