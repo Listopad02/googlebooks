@@ -1,0 +1,8 @@
+.Select {
+    margin-top: 10px;
+    color: #fff;
+    margin-left: 15px;
+}
+.Select select {
+    outline: none;
+}

@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+} 
+.InputForm {
+    width: 60%;
+    z-index: 2;
+    padding-left: 2.375rem;
+    position: relative;
+} 
+.InputForm input {
+    outline: none;
+    height: 3em;
+    border-radius: 5px;
+    width: 100%;
+    display: block;
+    padding-left: 1.375rem;
+}  
+button {
+    position: absolute;
+    top: 5px;
+    right: .4em;
+    height: 2.2em;
+    border-radius: 1.1em;
+    border: 1px solid #fff;
+    text-transform: uppercase;
+}
