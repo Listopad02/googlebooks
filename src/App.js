@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-// import InputForm from './components/InputForm/InputForm';
 import Select from './components/Select/Select';
 import axios from 'axios';
 
@@ -9,7 +8,8 @@ class App extends React.Component {
     defaultValue: 1,
     book: '',
     result: [],
-    apiKey: 'AIzaSyBeXETly2VZZIBjImMz-7kSNsAUdu2EUhk' 
+    apiKey: 'AIzaSyBeXETly2VZZIBjImMz-7kSNsAUdu2EUhk',
+    maxResults: 8
   }
 
   changeHandler = e => {
@@ -74,14 +74,19 @@ class App extends React.Component {
         </header>
 
         <main className="App-main">
-          { this.state.result.map((book, i) => (
-            <div className="App-main-container">
+          { this.state.result.map((book, i) => {
+            if (i >= this.state.maxResults) {
+              return null
+            } return (
+            <div className="App-main-container" key={i}>
               <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.title} />
               <p>Category: {book.volumeInfo.categories}</p>
               <p>Title: {book.volumeInfo.title}</p>
               <p>Author: {book.volumeInfo.authors + ' '}</p>
             </div>
-          )) }
+          )}) }
+
+          <button onClick={() => this.setState({maxResults: this.state.maxResults + 8})}>Show more</button>
         </main>
       </div>
     )
