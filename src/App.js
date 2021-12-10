@@ -101,11 +101,11 @@ class App extends React.Component {
                 </div>
               )})
           }
-          {/* {
-            this.state.result === []
+          {
+            this.state.result.length === 0
               ? null
               : <button onClick={this.pagination}>Show more</button>
-          } */}
+          }
         </main>
       </div>
     )
