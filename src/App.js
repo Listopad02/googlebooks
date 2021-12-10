@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Select from './components/Select/Select';
 import Loader from './components/Loader/Loader';
+import BookCard from './components/BookCard/BookCard';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -19,7 +20,6 @@ class App extends React.Component {
 		this.setState({
 			book: e.target.value
 		})
-		console.log(this.state.book)
 	}
 
 	submitHandler = e => {
@@ -36,7 +36,7 @@ class App extends React.Component {
 						   + this.state.defaultSortType + "&key="
 						    + this.state.apiKey + "&maxResults=40")
 			.then(data => {
-				console.log(data.data.items)
+				console.log(this.state.result, this.state.result.length)
     			this.setState({
         			result: data.data.items,
         			loading: false
@@ -51,7 +51,7 @@ class App extends React.Component {
 						  + this.state.defaultSortType + "&key=" 
 						   + this.state.apiKey + "&maxResults=40")
 			.then(data => {
-				console.log(data.data.items)
+				console.log(this.state.result, this.state.result.length)
     			this.setState({
         			result: data.data.items,
         			loading: false
@@ -120,26 +120,27 @@ class App extends React.Component {
           			</div>
         		</header>
 
-        		<main className="App-main">
+        		<main className="App-main">					
 					{
-						this.state.result.length === 0
-						? null
-						: <div className='Books-counter'><p>Books found: {this.state.result.length}</p></div>
+						this.state.result.length !== 0 
+						? <div className='Books-counter'><p>Books found: {this.state.result.length}</p></div>
+						: null
 					}
 					{
 						this.state.loading 
-						? <Loader />
-						: this.state.result.map((book, i) => {
-							if (i >= this.state.maxResults) {
-							return null
-							} return (
-							<div className="App-main-container" key={i}>
-								<img src={book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
-								<p><b>Category:</b> {book.volumeInfo.categories || "None"}</p>
-								<p><b>Title:</b> {book.volumeInfo.title || "Not found"}</p>
-								<p><b>Author:</b> {book.volumeInfo.authors + ' ' || "Not found"}</p>
-							</div>
-						)}) 
+						? <Loader /> : this.state.result.length !== undefined
+							? this.state.result.map((book, i) => {
+								if (i >= this.state.maxResults) {
+									return null
+								} return (
+									<div className="App-main-container" key={i}>
+										<img src={book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
+										<p><b>Category:</b> {book.volumeInfo.categories || "None"}</p>
+										<p><b>Title:</b> {book.volumeInfo.title || "Not found"}</p>
+										<p><b>Author:</b> {book.volumeInfo.authors === undefined || null ? "Not found" : `${book.volumeInfo.authors + ' '}` || "Not found"}</p>
+									</div>
+								)})
+							: null
 					}
 					{
 						this.state.result.length === 0 || this.state.loading
