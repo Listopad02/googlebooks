@@ -128,19 +128,18 @@ class App extends React.Component {
 					}
 					{
 						this.state.loading 
-						? <Loader /> : this.state.result.length !== undefined
-							? this.state.result.map((book, i) => {
-								if (i >= this.state.maxResults) {
-									return null
-								} return (
-									<div className="App-main-container" key={i}>
-										<img src={book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
-										<p><b>Category:</b> {book.volumeInfo.categories || "None"}</p>
-										<p><b>Title:</b> {book.volumeInfo.title || "Not found"}</p>
-										<p><b>Author:</b> {book.volumeInfo.authors === undefined || null ? "Not found" : `${book.volumeInfo.authors + ' '}` || "Not found"}</p>
-									</div>
-								)})
-							: null
+						? <Loader /> 
+						: this.state.result.map((book, i) => {
+							if (i >= this.state.maxResults) {
+								return null
+							} return (
+								<div className="App-main-container" key={i}>
+									<img src={book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
+									<p><b>Category:</b> {book.volumeInfo.categories || "None"}</p>
+									<p><b>Title:</b> {book.volumeInfo.title || "Not found"}</p>
+									<p><b>Author:</b> {book.volumeInfo.authors === undefined || null ? "Not found" : `${book.volumeInfo.authors + ' '}` || "Not found"}</p>
+								</div>
+							)})
 					}
 					{
 						this.state.result.length === 0 || this.state.loading
