@@ -15,6 +15,9 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #fff;
 }
+.App-header p {
+  color: #fff;
+}
 .App-selects {
   display: flex;
   flex-direction: row;
@@ -57,7 +60,7 @@ button {
 }
 .App-main-container img {
   float: left;
-  margin: 2px;
+  margin: 0 auto;
   padding: 2px;
   border: 1px solid #ccc;
 }
@@ -67,4 +70,28 @@ button {
 .App-main button {
   position: relative;
   margin-bottom: 10px;
+}
+.Books-counter {
+  width: 100vw;
+  text-align: center;
+}
+
+
+@media screen and (max-width: 1366px) {
+  .App-main-container {
+    width: calc(25% - 0px);
+  }
+}
+@media screen and (max-width: 1024px) {
+  .App-main-container {
+    width: calc(50% - 0px);
+  }
+}
+@media screen and (max-width: 375px) {
+  .App-main-container {
+    width: calc(50% - 0px);
+  }
+  .App-header h1 {
+    font-size: 18px;
+  }
 }
