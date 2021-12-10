@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Select from './components/Select/Select';
 import axios from 'axios';
+import Loader from './components/Loader/Loader';
 
 class App extends React.Component {
   state = {
@@ -9,7 +10,8 @@ class App extends React.Component {
     book: '',
     result: [],
     apiKey: 'AIzaSyBeXETly2VZZIBjImMz-7kSNsAUdu2EUhk',
-    maxResults: 8
+    maxResults: 8,
+    loading: false
   }
 
   changeHandler = e => {
@@ -21,18 +23,28 @@ class App extends React.Component {
 
   submitHandler = e => {
     e.preventDefault();
+    this.setState({
+      loading: true
+    })
 
     axios.get('https://www.googleapis.com/books/v1/volumes?q=' + this.state.book + "&key=" + this.state.apiKey + "&maxResults=30")
     .then(data => {
       console.log(data.data.items)
       this.setState({
-        result: data.data.items
+        result: data.data.items,
+        loading: false
       })
     })
   }
 
   selectChangeHandler = e => {
     console.log(e.target.value);
+  }
+
+  pagination = () => {
+    this.setState({
+      maxResults: this.state.maxResults + 8
+    })
   }
 
   render() {
@@ -74,19 +86,26 @@ class App extends React.Component {
         </header>
 
         <main className="App-main">
-          { this.state.result.map((book, i) => {
-            if (i >= this.state.maxResults) {
-              return null
-            } return (
-            <div className="App-main-container" key={i}>
-              <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.title} />
-              <p>Category: {book.volumeInfo.categories}</p>
-              <p>Title: {book.volumeInfo.title}</p>
-              <p>Author: {book.volumeInfo.authors + ' '}</p>
-            </div>
-          )}) }
-
-          <button onClick={() => this.setState({maxResults: this.state.maxResults + 8})}>Show more</button>
+          {
+            this.state.loading 
+              ? <Loader />
+              : this.state.result.map((book, i) => {
+                if (i >= this.state.maxResults) {
+                  return null
+                } return (
+                <div className="App-main-container" key={i}>
+                  <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.title} />
+                  <p><b>Category:</b> {book.volumeInfo.categories}</p>
+                  <p><b>Title:</b> {book.volumeInfo.title}</p>
+                  <p><b>Author:</b> {book.volumeInfo.authors + ' '}</p>
+                </div>
+              )})
+          }
+          {/* {
+            this.state.result === []
+              ? null
+              : <button onClick={this.pagination}>Show more</button>
+          } */}
         </main>
       </div>
     )
