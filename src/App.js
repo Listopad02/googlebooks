@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import Select from './components/Select/Select';
-import axios from 'axios';
 import Loader from './components/Loader/Loader';
+import axios from 'axios';
 
 class App extends React.Component {
 	state = {
@@ -11,7 +11,7 @@ class App extends React.Component {
 		book: '',
 		result: [],
 		apiKey: 'AIzaSyBeXETly2VZZIBjImMz-7kSNsAUdu2EUhk',
-		maxResults: 8,
+		maxResults: 10,
 		loading: false,
 	}
 
@@ -29,22 +29,44 @@ class App extends React.Component {
 			maxResults: 8
 		})
 
-		axios.get('https://www.googleapis.com/books/v1/volumes?q=' + this.state.book + "&orderBy=" + this.state.defaultSortType + "&key=" + this.state.apiKey + "&maxResults=40")
-		.then(data => {
-			console.log(data.data.items)
-    		this.setState({
-        		result: data.data.items,
-        		loading: false
-      		})
-    	})
-		.catch(error => {
-			console.log(error);
-		})
+		if (this.state.defaultValue !== 'all') {
+			axios.get("https://www.googleapis.com/books/v1/volumes?q="
+						 + this.state.book + "+subject:"
+						  + this.state.defaultValue + "&orderBy="
+						   + this.state.defaultSortType + "&key="
+						    + this.state.apiKey + "&maxResults=40")
+			.then(data => {
+				console.log(data.data.items)
+    			this.setState({
+        			result: data.data.items,
+        			loading: false
+      			})
+    		})
+			.catch(error => {
+				console.log(error);
+			})
+		} else {
+			axios.get("https://www.googleapis.com/books/v1/volumes?q="
+						 + this.state.book + "&orderBy="
+						  + this.state.defaultSortType + "&key=" 
+						   + this.state.apiKey + "&maxResults=40")
+			.then(data => {
+				console.log(data.data.items)
+    			this.setState({
+        			result: data.data.items,
+        			loading: false
+      			})
+    		})
+			.catch(error => {
+				console.log(error);
+			})
+		}
+		
   	}
 
 	selectChangeHandler = e => {
     	this.setState({
-			defaultValue: +e.target.value
+			defaultValue: e.target.value
 		})
   	}
 
@@ -80,13 +102,13 @@ class App extends React.Component {
                     			value={this.state.defaultValue}
                     			onChange={this.selectChangeHandler}
                     			options={[
-                      				{text: 'all', value: 1},
-                      				{text: 'art', value: 2},
-                      				{text: 'biography', value: 3},
-                      				{text: 'computers', value: 4},
-                      				{text: 'history', value: 5},
-                      				{text: 'medical', value: 6},
-                      				{text: 'poetry', value: 7},
+                      				{text: 'all', value: 'all'},
+                      				{text: 'art', value: 'art'},
+                      				{text: 'biography', value: 'biography'},
+                      				{text: 'computers', value: 'computers'},
+                      				{text: 'history', value: 'history'},
+                      				{text: 'medical', value: 'medical'},
+                      				{text: 'poetry', value: 'poetry'},
               			]} />
             			<Select label="Sort by:"
                     			value={this.state.defaultSortType}
@@ -112,10 +134,10 @@ class App extends React.Component {
 							return null
 							} return (
 							<div className="App-main-container" key={i}>
-							<img src={book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
-							<p><b>Category:</b> {book.volumeInfo.categories}</p>
-							<p><b>Title:</b> {book.volumeInfo.title}</p>
-							<p><b>Author:</b> {book.volumeInfo.authors + ' '}</p>
+								<img src={book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
+								<p><b>Category:</b> {book.volumeInfo.categories || "None"}</p>
+								<p><b>Title:</b> {book.volumeInfo.title || "Not found"}</p>
+								<p><b>Author:</b> {book.volumeInfo.authors + ' ' || "Not found"}</p>
 							</div>
 						)}) 
 					}
