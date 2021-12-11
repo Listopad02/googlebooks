@@ -10,7 +10,7 @@ class BooksList extends React.Component {
         console.log(this.props)
         return (
             <div className="BooksList">					
-            {/* {
+            {
                 this.props.result.length !== 0
                     ? <div className='Books-counter'><p>Books found: {this.state.result.length}</p></div>
                     : null
@@ -34,7 +34,7 @@ class BooksList extends React.Component {
                 this.props.result.length === 0 || this.state.loading
                 ? null
                 : <button onClick={() => this.paginate(8)}>Show more</button>
-            } */}
+            }
         </div>
         )
     }

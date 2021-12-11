@@ -19,28 +19,33 @@ export default function rootReducer(state = initialState, action) {
     switch(action.type) {
 		case FIRST_SELECT_CHANGE:
 			return {
+				...state,
 				defaultValue: action.val
 			}
 		case SECOND_SELECT_CHANGE:
 			return {
+				...state,
 				defaultSortType: action.val
 			}
 		case INPUT_CHANGE_HANDLER:
 			return {
-				book: action.val
+				...state, book: action.payload
 			}
 		case SUBMIT_HANDLER:
 			return {
+				...state,
 				loading: true,
 				maxResults: 8
 			}
 		case DATA_FETCH:
 			return {
+				...state,
 				result: action.val,
 				loading: false
 			} 
 		case PAGINATE:
 			return {
+				...state,
 				maxResults: state.maxResults + action.val
 			}
 		default:

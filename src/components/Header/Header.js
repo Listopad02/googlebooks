@@ -38,7 +38,6 @@ class Header extends React.Component {
   	}
 
     render() {
-		console.log(this.props)
         return (
             <div className="Header">
           			<h1>Online Google Library</h1>
