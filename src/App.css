@@ -1,53 +1,6 @@
-.App-header {
-  background: url(https://www.detroitlabs.com/wp-content/uploads/2018/02/alfons-morales-YLSwjSy7stw-unsplash.jpg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  width: 100%;
-  height: 400px;
-  background-attachment: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.App-header h1 {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
-}
-.App-header p {
-  color: #fff;
-}
-.App-selects {
-  display: flex;
-  flex-direction: row;
-}
 * {
   box-sizing: border-box;
 } 
-.App-InputForm {
-  width: 60%;
-  z-index: 2;
-  padding-left: 2.375rem;
-  position: relative;
-} 
-.App-InputForm input {
-  outline: none;
-  height: 3em;
-  border-radius: 5px;
-  width: 100%;
-  display: block;
-  padding-left: 1.375rem;
-}  
-button {
-  position: absolute;
-  top: 5px;
-  right: .4em;
-  height: 2.2em;
-  border-radius: 1.1em;
-  border: 1px solid #fff;
-  text-transform: uppercase;
-}
 .App-main {
   display: flex;
   flex-wrap: wrap;
