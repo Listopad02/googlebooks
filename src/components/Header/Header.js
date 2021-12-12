@@ -91,11 +91,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        selectChangeHandler: val => dispatch({type: FIRST_SELECT_CHANGE, payload: val}),
-		secondSelectChangeHandler: val => dispatch({type: SECOND_SELECT_CHANGE, payload: val}),
-		inputChangeHandler: val => dispatch({type: INPUT_CHANGE_HANDLER, payload: val}),
+        selectChangeHandler: val => dispatch({type: FIRST_SELECT_CHANGE, select1: val}),
+		secondSelectChangeHandler: val => dispatch({type: SECOND_SELECT_CHANGE, select2: val}),
+		inputChangeHandler: val => dispatch({type: INPUT_CHANGE_HANDLER, input: val}),
 		submitHandler: val => dispatch({type: SUBMIT_HANDLER, payload: val}),
-		dataFetch: val => dispatch({type: DATA_FETCH, payload: val})
+		dataFetch: val => dispatch({type: DATA_FETCH, payData: val})
     }
 }
 

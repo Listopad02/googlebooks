@@ -3,42 +3,48 @@
     flex-wrap: wrap;
     justify-content: space-around;
   }
+.BooksList-container {
+  margin-top: 15px;
+  width: calc(24% - 0px);
+  border: 1px solid #ccc;
+}
+.BooksList-container:hover {
+  cursor: pointer;
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  transition: box-shadow .2s ease-out;
+}
+.BooksList-container img {
+  height: 188px;
+  float: left;
+  margin: 0 auto;
+  padding: 2px;
+  border: 1px solid #ccc;
+}
+.BooksList-container p {
+  margin-left: 7px;
+}
+.BooksList button {
+  position: relative;
+  margin-bottom: 10px;
+}
+.Books-counter {
+  width: 100vw;
+  text-align: center;
+}
+  
+  
+@media screen and (max-width: 1366px) {
   .BooksList-container {
-    margin-top: 15px;
-    width: calc(24% - 0px);
-    border: 1px solid #ccc;
+    width: calc(25% - 0px);
   }
-  .BooksList-container img {
-    float: left;
-    margin: 0 auto;
-    padding: 2px;
-    border: 1px solid #ccc;
+}
+@media screen and (max-width: 1024px) {
+  .BooksList-container {
+    width: calc(50% - 0px);
   }
-  .BooksList-container p {
-    margin-left: 7px;
+}
+@media screen and (max-width: 375px) {
+  .BooksList-container {
+    width: calc(50% - 0px);
   }
-  .BooksList button {
-    position: relative;
-    margin-bottom: 10px;
-  }
-  .Books-counter {
-    width: 100vw;
-    text-align: center;
-  }
-  
-  
-  @media screen and (max-width: 1366px) {
-    .BooksList-container {
-      width: calc(25% - 0px);
-    }
-  }
-  @media screen and (max-width: 1024px) {
-    .BooksList-container {
-      width: calc(50% - 0px);
-    }
-  }
-  @media screen and (max-width: 375px) {
-    .BooksList-container {
-      width: calc(50% - 0px);
-    }
-  }
+}

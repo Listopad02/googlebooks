@@ -9,16 +9,15 @@ class BooksList extends React.Component {
     render() {
         console.log(this.props)
         return (
-            <div className="BooksList">					
+            <div className="BooksList">	
             {
-                this.props.result.length !== 0
-                    ? <div className='Books-counter'><p>Books found: {this.state.result.length}</p></div>
-                    : null
-            }
+                this.props.result && this.props.result.length !== 0
+                ? <div className='Books-counter'><p>Books found: {this.props.result.length}</p></div>
+                : null
+            }				
             {
-                this.props.loading 
-                ? <Loader /> 
-                : this.props.result.map((book, i) => {
+                !this.props.loading && this.props.result
+                ? this.props.result.map((book, i) => {
                     if (i >= this.props.maxResults) {
                         return null
                     } return (
@@ -29,11 +28,14 @@ class BooksList extends React.Component {
                             <p><b>Author:</b> {book.volumeInfo.authors === undefined || null ? "Not found" : `${book.volumeInfo.authors + ' '}` || "Not found"}</p>
                         </div>
                     )})
+                : this.props.result && this.props.result.length === 0 
+                    ? <Loader />
+                    : <h1>Nothing found</h1>
             }
             {
-                this.props.result.length === 0 || this.state.loading
-                ? null
-                : <button onClick={() => this.paginate(8)}>Show more</button>
+                (this.props.maxResults < 40 && (this.props.result && this.props.result.length !== 0))  && this.props.loading === false
+                ? <button onClick={() => this.props.paginate(8)}>Show more</button>
+                : null
             }
         </div>
         )
