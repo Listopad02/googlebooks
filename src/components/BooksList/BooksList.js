@@ -23,9 +23,11 @@ class BooksList extends React.Component {
                             ? this.props.result.map((book, i) => (
                                     <div className="BooksList-container" key={i}>
                                         <img src={book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
-                                        <p><b>Category:</b> {book.volumeInfo.categories || "None"}</p>
-                                        <p><b>Title:</b> {book.volumeInfo.title || "Not found"}</p>
-                                        <p><b>Author:</b> {book.volumeInfo.authors === undefined || null ? "Not found" : `${book.volumeInfo.authors + ' '}` || "Not found"}</p>
+                                        <div className="Container-body">
+                                            <p style={{color: 'gray'}}><u>{book.volumeInfo.categories || "None"}</u></p>
+                                            <p><b>{book.volumeInfo.title || "Not found"}</b></p>
+                                            <p style={{color: 'gray'}}>{book.volumeInfo.authors === undefined || null ? "Not found" : `${book.volumeInfo.authors + ' '}` || "Not found"}</p>
+                                        </div>
                                     </div>
                                 ))
                             : <p>Oops! Seems like we found nothing... Please, try different query.</p>
