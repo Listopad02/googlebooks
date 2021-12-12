@@ -1,67 +1,29 @@
+// import axios from "axios";
 import React from "react";
 import Select from "../Select/Select";
 import Formsy from "formsy-react";
-import axios from "axios";
 import "./Header.css";
 import { connect } from "react-redux"
-import { FIRST_SELECT_CHANGE,
-	SECOND_SELECT_CHANGE,
-	INPUT_CHANGE_HANDLER,
-	DATA_FETCH,
-	SUBMIT_HANDLER,
-	TOTAL_ITEMS_FETCH } from "../../store/actions/actionTypes";
+import { firstSelectChange,
+		 secondSelectChange,
+		 inputChangeHandler,
+		 searchResult,
+		 dataFetch,
+		 totalItemsFetch } from "../../store/actions/book";
 
 class Header extends React.Component {
-
-    submitHandler = e => {
-
-		if (this.props.defaultValue !== 'all') {
-			axios.get("https://www.googleapis.com/books/v1/volumes?q="
-						 + this.props.book + "+subject:"
-						  + this.props.defaultValue + "&orderBy="
-						   + this.props.defaultSortType + "&key="
-						    + this.props.apiKey + "&maxResults=30&startIndex=" 
-							 + this.props.startIndex)
-			.then(data => {
-				console.log('data.totalItems: ', data.data.totalItems)
-				console.log('data.items: ', data.data.totalItems)
-				this.props.dataFetch(data.data.items)
-				this.props.totalItemsFetch(data.data.totalItems)
-			})
-			.catch(error => {
-				console.log(error);
-			})
-		} else {
-			axios.get("https://www.googleapis.com/books/v1/volumes?q="
-						 + this.props.book + "&orderBy="
-						  + this.props.defaultSortType + "&key=" 
-						   + this.props.apiKey + "&maxResults=30&startIndex="
-						    + this.props.startIndex)
-			.then(data => {
-				console.log('data.totalItems: ', data.data.totalItems)
-				console.log('data.items: ', data.data.items)
-				this.props.dataFetch(data.data.items, data.data.totalItems)
-				this.props.totalItemsFetch(data.data.totalItems)
-			}
-				)
-			.catch(error => {
-				console.log(error);
-			})
-		}
-		
-  	}
 
     render() {
         return (
             <div className="Header">
           			<h1>Online Google Library</h1>
           			<div className="Header-inputForm">
-            			<Formsy onSubmit={this.submitHandler}>
+            			<Formsy onSubmit={e => this.props.searchResult()}>
                 			<input type="text" 
                        		   	   placeholder="Example: JavaScript" 
                        		       onChange={e => this.props.inputChangeHandler(e.target.value)}
                 			/>
-                			<button type="submit" onClick={e => this.props.submitHandler(e.target.value)}>Search</button>
+                			<button type="submit" onClick={e => this.props.searchResult()}>Search</button>
             			</Formsy>
           			</div>
 
@@ -105,12 +67,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        selectChangeHandler: val => dispatch({type: FIRST_SELECT_CHANGE, select1: val}),
-		secondSelectChangeHandler: val => dispatch({type: SECOND_SELECT_CHANGE, select2: val}),
-		inputChangeHandler: val => dispatch({type: INPUT_CHANGE_HANDLER, input: val}),
-		submitHandler: val => dispatch({type: SUBMIT_HANDLER, payload: val}),
-		dataFetch: val => dispatch({type: DATA_FETCH, payData: val}),
-		totalItemsFetch: val => dispatch({type: TOTAL_ITEMS_FETCH, totalData: val})
+        selectChangeHandler: val => dispatch(firstSelectChange(val)),
+		secondSelectChangeHandler: val => dispatch(secondSelectChange(val)),
+		inputChangeHandler: val => dispatch(inputChangeHandler(val)),
+		searchResult: () => dispatch(searchResult()),
+		dataFetch: val => dispatch(dataFetch(val)),
+		totalItemsFetch: val => dispatch(totalItemsFetch(val))
     }
 }
 

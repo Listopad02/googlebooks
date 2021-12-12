@@ -20,6 +20,7 @@
   flex: 1 1 auto;
 }
 .BooksList-container img {
+  border: 1px solid #ccc;
   margin: 0 auto;
   height: 182px;
 }

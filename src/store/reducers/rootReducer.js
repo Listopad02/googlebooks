@@ -1,17 +1,17 @@
 import { FIRST_SELECT_CHANGE,
-	SECOND_SELECT_CHANGE,
-	INPUT_CHANGE_HANDLER,
-	SUBMIT_HANDLER,
-	DATA_FETCH,
-	PAGINATE,
-	TOTAL_ITEMS_FETCH } from "../actions/actionTypes";
+		 SECOND_SELECT_CHANGE,
+		 INPUT_CHANGE_HANDLER,
+		 SUBMIT_HANDLER,
+		 DATA_FETCH,
+		 PAGINATE,
+		 TOTAL_ITEMS_FETCH } from "../actions/actionTypes";
 
 const initialState = {
-	defaultValue: 'all',
-	defaultSortType: 'relevance',
-	book: '',
-	result: [],
-	apiKey: 'AIzaSyBeXETly2VZZIBjImMz-7kSNsAUdu2EUhk',
+	result: [],  
+	apiKey: 'AIzaSyBeXETly2VZZIBjImMz-7kSNsAUdu2EUhk', 
+	defaultValue: 'all',  
+	defaultSortType: 'relevance', 
+	book: '', 
 	loading: false,
 	totalItems: 0,
 	startIndex: 0
@@ -19,17 +19,17 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action) {
 	switch(action.type) {
-	case FIRST_SELECT_CHANGE:
+	case FIRST_SELECT_CHANGE:  
 		return {
 			...state,
 			defaultValue: action.select1
 		}
-	case SECOND_SELECT_CHANGE:
+	case SECOND_SELECT_CHANGE:  
 		return {
 			...state,
 			defaultSortType: action.select2
 		}
-	case INPUT_CHANGE_HANDLER:
+	case INPUT_CHANGE_HANDLER:  
 		return {
 			...state, book: action.input
 		}
@@ -37,7 +37,6 @@ export default function rootReducer(state = initialState, action) {
 		return {
 			...state,
 			loading: true,
-			maxResults: 8
 		}
 	case DATA_FETCH:
 		return {
