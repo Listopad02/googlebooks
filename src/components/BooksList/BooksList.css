@@ -1,12 +1,13 @@
 .BooksList {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 .BooksList-container {
   margin-top: 15px;
-  width: calc(24% - 0px);
+  width: calc(30% - 0px);
   border: 1px solid #ccc;
+  border-radius: 5px;
 }
 .BooksList-container:hover {
   cursor: pointer;
@@ -31,7 +32,7 @@
   width: 100vw;
   text-align: center;
 }
-  
+
   
 @media screen and (max-width: 1366px) {
   .BooksList-container {

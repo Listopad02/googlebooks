@@ -8,7 +8,8 @@ import { FIRST_SELECT_CHANGE,
 	SECOND_SELECT_CHANGE,
 	INPUT_CHANGE_HANDLER,
 	DATA_FETCH,
-	SUBMIT_HANDLER } from "../../store/actions/actionTypes";
+	SUBMIT_HANDLER,
+	TOTAL_ITEMS_FETCH } from "../../store/actions/actionTypes";
 
 class Header extends React.Component {
 
@@ -19,8 +20,14 @@ class Header extends React.Component {
 						 + this.props.book + "+subject:"
 						  + this.props.defaultValue + "&orderBy="
 						   + this.props.defaultSortType + "&key="
-						    + this.props.apiKey + "&maxResults=40")
-			.then(data => this.props.dataFetch(data.data.items))
+						    + this.props.apiKey + "&maxResults=30&startIndex=" 
+							 + this.props.startIndex)
+			.then(data => {
+				console.log('data.totalItems: ', data.data.totalItems)
+				console.log('data.items: ', data.data.totalItems)
+				this.props.dataFetch(data.data.items)
+				this.props.totalItemsFetch(data.data.totalItems)
+			})
 			.catch(error => {
 				console.log(error);
 			})
@@ -28,8 +35,15 @@ class Header extends React.Component {
 			axios.get("https://www.googleapis.com/books/v1/volumes?q="
 						 + this.props.book + "&orderBy="
 						  + this.props.defaultSortType + "&key=" 
-						   + this.props.apiKey + "&maxResults=40")
-			.then(data => this.props.dataFetch(data.data.items))
+						   + this.props.apiKey + "&maxResults=30&startIndex="
+						    + this.props.startIndex)
+			.then(data => {
+				console.log('data.totalItems: ', data.data.totalItems)
+				console.log('data.items: ', data.data.items)
+				this.props.dataFetch(data.data.items, data.data.totalItems)
+				this.props.totalItemsFetch(data.data.totalItems)
+			}
+				)
 			.catch(error => {
 				console.log(error);
 			})
@@ -83,9 +97,9 @@ function mapStateToProps(state) {
         defaultValue: state.defaultValue,
 		defaultSortType: state.defaultSortType,
 		loading: state.loading,
-		maxResults: state.maxResults,
 		apiKey: state.apiKey,
-		result: state.result
+		result: state.result,
+		startIndex: state.startIndex
     }
 }
 
@@ -95,7 +109,8 @@ function mapDispatchToProps(dispatch) {
 		secondSelectChangeHandler: val => dispatch({type: SECOND_SELECT_CHANGE, select2: val}),
 		inputChangeHandler: val => dispatch({type: INPUT_CHANGE_HANDLER, input: val}),
 		submitHandler: val => dispatch({type: SUBMIT_HANDLER, payload: val}),
-		dataFetch: val => dispatch({type: DATA_FETCH, payData: val})
+		dataFetch: val => dispatch({type: DATA_FETCH, payData: val}),
+		totalItemsFetch: val => dispatch({type: TOTAL_ITEMS_FETCH, totalData: val})
     }
 }
 
