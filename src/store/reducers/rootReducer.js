@@ -53,7 +53,7 @@ export default function rootReducer(state = initialState, action) {
 	case PAGINATE:
 		return {
 			...state,
-			startIndex: + action.val
+			startIndex: action.startIndex
 		}
 	default:
 		return state;

@@ -102,3 +102,14 @@ export function totalItemsFetch(val) {
         totalData: val
     }
 }
+
+export function fetchBooks() {
+    return resultLoadMore()
+}
+
+export function paginate(val) {
+    return {
+        type: PAGINATE,
+        startIndex: val
+    }
+}

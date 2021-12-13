@@ -35,6 +35,12 @@
   width: 100vw;
   text-align: center;
 }
+.Paginate-button {
+  position: relative;
+  margin-top: 35px; 
+  margin-bottom: 40px;
+  left: 46%;
+}
 
   
 @media screen and (max-width: 1366px) {
