@@ -1,8 +1,9 @@
-import React from "react";
 import "./BooksList.css";
+import React from "react";
 import Loader from "../Loader/Loader";
 import { connect } from "react-redux";
-import { fetchBooks, paginate } from "../../store/actions/book"
+import {NavLink} from 'react-router-dom';
+import { fetchBooks, paginate, showInfo } from "../../store/actions/book"
 
 class BooksList extends React.Component {
 
@@ -32,17 +33,28 @@ class BooksList extends React.Component {
         }
     }
 
+
+
     renderBooks = () => {
         if (this.props.result && this.props.result.length !== 0) {
             return this.props.result.map((book, i) => (
-                <div className="BooksList-container" key={i}>
-                    <img src={book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
-                    <div className="Container-body">
-                        <p style={{color: 'gray'}}><u>{book.volumeInfo.categories || "None"}</u></p>
-                        <p><b>{book.volumeInfo.title || "Not found"}</b></p>
-                        <p style={{color: 'gray'}}>{book.volumeInfo.authors === undefined || null ? "Not found" : `${book.volumeInfo.authors + ' '}` || "Not found"}</p>
+                <NavLink to={'/book/' + book.id} className="BooksList-container">
+                    <div key={i} 
+                        onClick={e => this.props.showInfo(
+                        e.currentTarget.children[0].getAttribute('src'),
+                        e.currentTarget.children[1].children[0].children[0].innerHTML, 
+                        e.currentTarget.children[1].children[1].innerHTML,
+                        e.currentTarget.children[1].children[3].innerHTML)} >
+                        <img src={book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
+                        <div className="Container-body">
+                            <p style={{color: 'gray'}}><u>{book.volumeInfo.categories || "None"}</u></p>
+                            <p style={{display: 'none'}}>{book.volumeInfo.description || "Nothing"}</p>
+                            <p><b>{book.volumeInfo.title || "Not found"}</b></p>
+                            <p style={{color: 'gray'}}>{book.volumeInfo.authors === undefined || null ? "Not found" : `${book.volumeInfo.authors + ' '}` || "Not found"}</p>
+                        </div>
                     </div>
-                </div>
+                </NavLink>
+                
             ))
         } else {
             return (
@@ -75,14 +87,19 @@ function mapStateToProps(state) {
 		apiKey: state.apiKey,
 		result: state.result,
         totalItems: state.totalItems,
-        startIndex: state.startIndex
+        startIndex: state.startIndex,
+        cardImage: state.cardImage,
+        cardCategory: state.cardCategory,
+        cardDescription: state.cardDescription,
+        cardAuthors: state.cardAuthors
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         paginate: val => dispatch(paginate(val)),
-        fetchBooks: () => dispatch(fetchBooks())
+        fetchBooks: () => dispatch(fetchBooks()),
+        showInfo: (img, category, description, authors) => dispatch(showInfo(img, category, description, authors))
     }
 }
 

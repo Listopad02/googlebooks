@@ -5,7 +5,8 @@ import {FIRST_SELECT_CHANGE,
         SUBMIT_HANDLER,
         DATA_FETCH,
         TOTAL_ITEMS_FETCH,
-        PAGINATE}
+        PAGINATE,
+        SHOW_INFO}
  from "./actionTypes";
 
  export function firstSelectChange(val) {
@@ -86,6 +87,16 @@ export function resultLoadMore() {
         } catch (error) {
             console.log(error)
         }
+    }
+}
+
+export function showInfo(img, category, description, authors) {
+    return {
+        type: SHOW_INFO,
+        cardImage: img,
+        cardCategory: category,
+        cardDescription: description,
+        cardAuthors: authors
     }
 }
 

@@ -7,6 +7,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import rootReducer from './store/reducers/rootReducer';
+import { BrowserRouter } from 'react-router-dom';
 
 const composeEnhancers =
   typeof window === 'object' &&
@@ -24,7 +25,9 @@ const store = createStore(
 const app = (
     <Provider store={store}>
         <React.StrictMode>
+          <BrowserRouter>
             <App />
+          </BrowserRouter>
         </React.StrictMode>
     </Provider>
 )

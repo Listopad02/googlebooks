@@ -10,6 +10,11 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  text-decoration: none;
+  color: #000;
+}
+.Books-counter img {
+  left: 50%;
 }
 .BooksList-container:hover {
   cursor: pointer;

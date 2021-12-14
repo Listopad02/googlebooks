@@ -5,3 +5,4 @@ export const SUBMIT_HANDLER = 'SUBMIT_HANDLER';
 export const DATA_FETCH = 'DATA_FETCH';
 export const TOTAL_ITEMS_FETCH = 'TOTAL_ITEMS_FETCH';
 export const PAGINATE = 'PAGINATE';
+export const SHOW_INFO = 'SHOW_INFO';

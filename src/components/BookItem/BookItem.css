@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+}
+.Wrapper {
+    top: 0;
+    left: 0;
+    border: 1px solid #ccc;
+    overflow: auto;
+}
+.FirstLayer {
+    background-color: #ccc;
+    padding: 5px;
+    display: inline-block;
+    width: 45%;
+    height: 100%;
+}
+.FirstLayer img {
+    text-align: center;
+}
+.SecondLayer {
+    padding: 5px;
+    display: inline-block;
+}
+.Description {
+    border: 1px solid #ccc;
+}
