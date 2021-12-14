@@ -3,7 +3,7 @@ import React from "react";
 import Loader from "../Loader/Loader";
 import { connect } from "react-redux";
 import {NavLink} from 'react-router-dom';
-import { fetchBooks, paginate, showInfo } from "../../store/actions/book"
+import { fetchBooks, paginate } from "../../store/actions/book"
 
 class BooksList extends React.Component {
 
@@ -36,19 +36,13 @@ class BooksList extends React.Component {
 
 
     renderBooks = () => {
-        if (this.props.result && this.props.result.length !== 0) {
+        if (this.props.result && this.props.result.length !== 0 && this.props.result.map !== undefined) {
             return this.props.result.map((book, i) => (
-                <NavLink to={'/book/' + book.id} className="BooksList-container">
-                    <div key={i} 
-                        onClick={e => this.props.showInfo(
-                        e.currentTarget.children[0].getAttribute('src'),
-                        e.currentTarget.children[1].children[0].children[0].innerHTML, 
-                        e.currentTarget.children[1].children[1].innerHTML,
-                        e.currentTarget.children[1].children[3].innerHTML)} >
+                <NavLink to={'/book/' + book.id} className="BooksList-container" key={i}>
+                    <div>
                         <img src={book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
                         <div className="Container-body">
                             <p style={{color: 'gray'}}><u>{book.volumeInfo.categories || "None"}</u></p>
-                            <p style={{display: 'none'}}>{book.volumeInfo.description || "Nothing"}</p>
                             <p><b>{book.volumeInfo.title || "Not found"}</b></p>
                             <p style={{color: 'gray'}}>{book.volumeInfo.authors === undefined || null ? "Not found" : `${book.volumeInfo.authors + ' '}` || "Not found"}</p>
                         </div>
@@ -69,9 +63,13 @@ class BooksList extends React.Component {
                 ? <Loader />
                 : <div>
                     {this.resultNumber()}
-                    <div className="BooksList">	
-                        {this.renderBooks()}
-                    </div>
+                    {
+                        this.props.result !== undefined
+                            ? <div className="BooksList">	
+                                {this.renderBooks()}
+                              </div>
+                            : <Loader />
+                    }
                     {this.paginateResult()}  
                 </div>
         )
@@ -88,10 +86,6 @@ function mapStateToProps(state) {
 		result: state.result,
         totalItems: state.totalItems,
         startIndex: state.startIndex,
-        cardImage: state.cardImage,
-        cardCategory: state.cardCategory,
-        cardDescription: state.cardDescription,
-        cardAuthors: state.cardAuthors
     }
 }
 
@@ -99,7 +93,6 @@ function mapDispatchToProps(dispatch) {
     return {
         paginate: val => dispatch(paginate(val)),
         fetchBooks: () => dispatch(fetchBooks()),
-        showInfo: (img, category, description, authors) => dispatch(showInfo(img, category, description, authors))
     }
 }
 

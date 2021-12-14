@@ -4,8 +4,7 @@ import { FIRST_SELECT_CHANGE,
 		 SUBMIT_HANDLER,
 		 DATA_FETCH,
 		 PAGINATE,
-		 TOTAL_ITEMS_FETCH, 
-		 SHOW_INFO} from "../actions/actionTypes";
+		 TOTAL_ITEMS_FETCH } from "../actions/actionTypes";
 
 const initialState = {
 	result: [],  
@@ -15,11 +14,7 @@ const initialState = {
 	book: '', 
 	loading: false,
 	totalItems: 0,
-	startIndex: 0,
-	cardImage: '',
-	cardCategory: '',
-	cardDescription: '',
-	cardAuthors: ''
+	startIndex: 0
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -59,14 +54,6 @@ export default function rootReducer(state = initialState, action) {
 		return {
 			...state,
 			startIndex: action.startIndex
-		}
-	case SHOW_INFO:
-		return {
-			...state,
-			cardImage: action.cardImage,
-			cardCategory: action.cardCategory,
-			cardDescription: action.cardDescription,
-			cardAuthors: action.cardAuthors
 		}
 	default:
 		return state;

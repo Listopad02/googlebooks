@@ -5,8 +5,7 @@ import {FIRST_SELECT_CHANGE,
         SUBMIT_HANDLER,
         DATA_FETCH,
         TOTAL_ITEMS_FETCH,
-        PAGINATE,
-        SHOW_INFO}
+        PAGINATE }
  from "./actionTypes";
 
  export function firstSelectChange(val) {
@@ -90,15 +89,23 @@ export function resultLoadMore() {
     }
 }
 
-export function showInfo(img, category, description, authors) {
-    return {
-        type: SHOW_INFO,
-        cardImage: img,
-        cardCategory: category,
-        cardDescription: description,
-        cardAuthors: authors
+export function showInfo(bookId) {
+    return async (dispatch) => {
+        dispatch(submitHandler())
+
+        const url = `https://www.googleapis.com/books/v1/volumes/${bookId}`;
+        console.log(url)
+
+        try {
+            const response = await axios.get(url);
+            const book = response.data;
+
+            dispatch(dataFetch(book))
+        } catch (error) {
+            console.log(error);
+        }
     }
-}
+} 
 
 export function dataFetch(val) {
     return {

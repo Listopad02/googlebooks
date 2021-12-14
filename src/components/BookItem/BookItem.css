@@ -1,26 +1,25 @@
-* {
-    box-sizing: border-box;
-}
 .Wrapper {
-    top: 0;
-    left: 0;
-    border: 1px solid #ccc;
-    overflow: auto;
+    display: flex;
+    padding: 20px;
 }
-.FirstLayer {
-    background-color: #ccc;
-    padding: 5px;
-    display: inline-block;
-    width: 45%;
-    height: 100%;
+.Item {
+    padding: 30px;
+    width: 50%;
 }
-.FirstLayer img {
-    text-align: center;
+.Item:first-child {
+    background-color: rgb(250, 246, 246);
 }
-.SecondLayer {
-    padding: 5px;
-    display: inline-block;
+.Item img {
+    box-shadow: 4px 4px 12px 6px rgba(34, 60, 80, 0.2);
+    width: 300px;
+    display: block;
+    margin: 0 auto;
 }
 .Description {
     border: 1px solid #ccc;
+    padding: 10px;
+}
+
+p u {
+    color: rgb(184, 182, 182);
 }
