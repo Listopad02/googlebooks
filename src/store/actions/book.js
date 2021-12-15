@@ -5,7 +5,8 @@ import {FIRST_SELECT_CHANGE,
         SUBMIT_HANDLER,
         DATA_FETCH,
         TOTAL_ITEMS_FETCH,
-        PAGINATE }
+        PAGINATE,
+        BOOK_FETCH }
  from "./actionTypes";
 
  export function firstSelectChange(val) {
@@ -89,6 +90,13 @@ export function resultLoadMore() {
     }
 }
 
+export function bookFetch(book) {
+    return {
+        type: BOOK_FETCH,
+        book
+    }
+}
+
 export function showInfo(bookId) {
     return async (dispatch) => {
         dispatch(submitHandler())
@@ -100,7 +108,7 @@ export function showInfo(bookId) {
             const response = await axios.get(url);
             const book = response.data;
 
-            dispatch(dataFetch(book))
+            dispatch(bookFetch(book))
         } catch (error) {
             console.log(error);
         }

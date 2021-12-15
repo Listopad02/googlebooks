@@ -32,10 +32,8 @@ class BooksList extends React.Component {
         }
     }
 
-
-
     renderBooks = () => {
-        if (this.props.result !== undefined && this.props.result.map !== undefined) {
+        if (this.props.result !== undefined) {
             console.log(this.props.result)
             return this.props.result.map((book, i) => (
                 <NavLink to={'/book/' + book.id} className="BooksList-container" key={i}>
@@ -62,13 +60,9 @@ class BooksList extends React.Component {
                 ? <Loader />
                 : <div>
                     {this.resultNumber()}
-                    {
-                        this.props.result === undefined
-                            ? <Loader />
-                            : <div className="BooksList">	
-                                {this.renderBooks()}
-                              </div>
-                    }
+                    <div className="BooksList">	
+                        {this.renderBooks()}
+                    </div>
                     {this.paginateResult()}  
                 </div>
         )

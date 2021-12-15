@@ -39,7 +39,7 @@ class BookItem extends React.Component {
 function mapStateToProps(state) {
     return {
         loading: state.loading,
-        result: state.result
+        result: state.bookItem
     }
 }
 
