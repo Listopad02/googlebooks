@@ -22,11 +22,11 @@ class BookItem extends React.Component {
                                 <img src={this.props.result.volumeInfo.imageLinks === undefined ? "" : `${this.props.result.volumeInfo.imageLinks.thumbnail}`} alt={this.props.result.volumeInfo.title} />
                             </div>
                             <div className="Item">
-                                <p style={{color: "rgb(184, 182, 182)"}}>{this.props.result.volumeInfo.categories}</p>
-                                <h2>{this.props.result.volumeInfo.title}</h2>
-                                <p><u>{this.props.result.volumeInfo.authors.join(', ')}</u></p>
+                                <p style={{color: "rgb(184, 182, 182)"}}>{this.props.result.volumeInfo.categories || "None"}</p>
+                                <h2>{this.props.result.volumeInfo.title || "Not found"}</h2>
+                                <p><u>{this.props.result.volumeInfo.authors + ' ' || "Not found"}</u></p>
                                 <div className="Description">
-                                    <p>{this.props.result.volumeInfo.description}</p>
+                                    <p>{this.props.result.volumeInfo.description || "Description not found"}</p>
                                 </div>
                             </div>
                         </div>

@@ -20,7 +20,6 @@ class BooksList extends React.Component {
 
     clickHandler = e => {
         e.preventDefault();
-
         this.props.paginate(this.props.startIndex + 29);
         this.props.fetchBooks()
     }
@@ -36,10 +35,11 @@ class BooksList extends React.Component {
 
 
     renderBooks = () => {
-        if (this.props.result && this.props.result.length !== 0 && this.props.result.map !== undefined) {
+        if (this.props.result !== undefined && this.props.result.map !== undefined) {
+            console.log(this.props.result)
             return this.props.result.map((book, i) => (
                 <NavLink to={'/book/' + book.id} className="BooksList-container" key={i}>
-                    <div>
+                    <div className="Wrapper-center">
                         <img src={book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
                         <div className="Container-body">
                             <p style={{color: 'gray'}}><u>{book.volumeInfo.categories || "None"}</u></p>
@@ -48,9 +48,8 @@ class BooksList extends React.Component {
                         </div>
                     </div>
                 </NavLink>
-                
             ))
-        } else {
+        } else  {
             return (
                 <p>Oops! Seems like we found nothing... Please, try different query.</p>
             )
@@ -64,11 +63,11 @@ class BooksList extends React.Component {
                 : <div>
                     {this.resultNumber()}
                     {
-                        this.props.result !== undefined
-                            ? <div className="BooksList">	
+                        this.props.result === undefined
+                            ? <Loader />
+                            : <div className="BooksList">	
                                 {this.renderBooks()}
                               </div>
-                            : <Loader />
                     }
                     {this.paginateResult()}  
                 </div>

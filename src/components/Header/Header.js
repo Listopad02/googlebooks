@@ -10,47 +10,51 @@ import { firstSelectChange,
 		 searchResult,
 		 dataFetch,
 		 totalItemsFetch } from "../../store/actions/book";
+import { useNavigate } from "react-router-dom";
 
-class Header extends React.Component {
+const Header = props => {
 
-    render() {
-        return (
-            <div className="Header">
-          			<h1>Online Google Library</h1>
-          			<div className="Header-inputForm">
-            			<Formsy onSubmit={e => this.props.searchResult()}>
-                			<input type="text" 
-                       		   	   placeholder="Example: JavaScript" 
-                       		       onChange={e => this.props.inputChangeHandler(e.target.value)}
-                			/>
-                			<button type="submit" onClick={e => this.props.searchResult()}>Search</button>
-            			</Formsy>
-          			</div>
+	let navigate = useNavigate()
 
-          			<div className="Header-selects">
-            			<Select label="Category:"
-                    			value={this.props.defaultValue}
-                    			onChange={e => this.props.selectChangeHandler(e.target.value)}
-                    			options={[
-                      				{text: 'all', value: 'all'},
-                      				{text: 'art', value: 'art'},
-                      				{text: 'biography', value: 'biography'},
-                      				{text: 'computers', value: 'computers'},
-                      				{text: 'history', value: 'history'},
-                      				{text: 'medical', value: 'medical'},
-                      				{text: 'poetry', value: 'poetry'},
-              			]} />
-            			<Select label="Sort by:"
-                    			value={this.props.defaultSortType}
-                    			onChange={e => this.props.secondSelectChangeHandler(e.target.value)}
-                    			options={[
-                      				{text: 'relevance', value: 'relevance'},
-                      				{text: 'newest', value: 'newest'}
-            			]} />
-          			</div>
-        		</div>
-        )
-    }
+	return (
+		<div className="Header">
+          	<h1>Online Google Library</h1>
+          	<div className="Header-inputForm">
+            	<Formsy onSubmit={() => {
+					navigate("/")
+					props.searchResult()
+				}}>
+                	<input type="text" 
+                       	placeholder="Example: JavaScript" 
+                       	onChange={e => props.inputChangeHandler(e.target.value)}
+                	/>
+                	<button type="submit" onClick={e => props.searchResult()}>Search</button>
+            	</Formsy>
+          	</div>
+
+          	<div className="Header-selects">
+            	<Select label="Category:"
+                    	value={props.defaultValue}
+                    	onChange={e => props.selectChangeHandler(e.target.value)}
+                    	options={[
+                      		{text: 'all', value: 'all'},
+                      		{text: 'art', value: 'art'},
+                      		{text: 'biography', value: 'biography'},
+                      		{text: 'computers', value: 'computers'},
+                      		{text: 'history', value: 'history'},
+                      		{text: 'medical', value: 'medical'},
+                      		{text: 'poetry', value: 'poetry'},
+              	]} />
+            	<Select label="Sort by:"
+                    	value={props.defaultSortType}
+                    	onChange={e => props.secondSelectChangeHandler(e.target.value)}
+                    	options={[
+                      		{text: 'relevance', value: 'relevance'},
+                      		{text: 'newest', value: 'newest'}
+            	]} />
+          	</div>
+        </div>
+	)
 }
 
 function mapStateToProps(state) {

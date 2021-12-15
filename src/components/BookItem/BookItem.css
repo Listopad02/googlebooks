@@ -11,7 +11,7 @@
 }
 .Item img {
     box-shadow: 4px 4px 12px 6px rgba(34, 60, 80, 0.2);
-    width: 300px;
+    width: 50%;
     display: block;
     margin: 0 auto;
 }
